@@ -3,22 +3,38 @@ const Image = require("../model/imagemodel");
 const { cloudinary } = require('../config/cloudinary');
 
 
-const getAllBooks = async (req,res)=>{
-
+const getAllBooks = async (req, res) => {
     try {
-        const books = await Book.find();
+        const { page, limit } = req.query;
+
+        let books;
+        let totalBooks = await Book.countDocuments();
+
+        if (page && limit) {
+            const pageNum = parseInt(page);
+            const limitNum = parseInt(limit);
+            const skip = (pageNum - 1) * limitNum;
+
+            books = await Book.find().skip(skip).limit(limitNum);
+        } else {
+            books = await Book.find();
+        }
+
         res.status(200).json({
-            status:true,
-            message:"Users fetched Succesfully",
-             data: books  
-        })
+            status: true,
+            message: "Books fetched successfully",
+            totalBooks,
+            data: books
+        });
     } catch (error) {
+        console.error(error);
         res.status(500).json({
-            status:false,
-            message:"Server Error"
-        })
+            status: false,
+            message: "Server Error"
+        });
     }
-}
+};
+
 
 
 
