@@ -1,0 +1,51 @@
+# Node.js dependencies
+/node_modules/
+/package-lock.json
+/yarn.lock
+
+# Build outputs
+/dist/
+/build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# MacOS files
+.DS_Store
+
+# Editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# React Native
+.expo/
+.expo-shared/
+
+# Misc
+*.log
+*.cache
+*.pid
+
+# Debug directories
+/debug/
+
+# Coverage directory used by testing tools
+/coverage/
+
+# Others
+*.tgz
+*.gz
+
