@@ -63,6 +63,34 @@ res.status(200).json({
   }
 }
 
+const searchBook = async(req,res)=>{
+  try {
+    
+ const {query}=req.query;
+
+ if(!query){
+  return res.status(400).json({
+    message:"no search done"
+  })
+}
+ const books = await Book.find({
+    $or:[
+      {title:{$regex:query,$options:'i'}},
+      {author:{$regex:query,$options:'i'}}
+    ]
+  }) 
+
+
+  res.json(books);
+
+  } catch (error) {
+     console.error("Search Error:", error.message);
+    res.status(500).json({
+      status: false,
+      message: "Server Error",
+    });
+  }
+}
 const addNewBook = async (req, res) => {
   try {
     const { title, author, year } = req.body;
@@ -202,5 +230,6 @@ module.exports={
     getSinglebookById,
     addNewBook,
     updateBook,
-    deleteBook
+    deleteBook,
+    searchBook
 }
